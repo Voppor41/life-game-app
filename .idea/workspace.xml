@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39867dd2-6038-465e-9568-a2a2e0b02037" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/app/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/app/services/huggingface_ai.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/database/db.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/database/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/database/schemas.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/services/auth_services/login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -55,6 +57,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\User\Dekstop\Self_treacker\backend\app\database" />
       <recent name="D:\User\Dekstop\Self_treacker\backend\app" />
     </key>
   </component>
@@ -78,5 +81,16 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
