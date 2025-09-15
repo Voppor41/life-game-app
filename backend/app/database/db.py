@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from pydantic import BaseModel
+from models import Base
 
 load_dotenv()
 
@@ -11,9 +11,13 @@ engine = create_engine(database_url)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-class User(BaseModel):
+def init_db():
+    Base.metadata.create_all(bind=engine)
 
-    id: int = 1
-    username: str
-    age: int
-    level: int = 1
+# Dependency для получения сессии базы данных
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
