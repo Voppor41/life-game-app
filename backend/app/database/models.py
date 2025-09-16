@@ -1,8 +1,9 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean, JSON, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
-import uuid
+from security import get_password_hash, verify_password
+import json
 
 Base = declarative_base()
 
@@ -15,12 +16,25 @@ class Player(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     level = Column(Integer, default=1)
+    habits = Column(JSON, default=[])
+    goals = Column(JSON, default=[])
+    preferences = Column(JSON, default={})
     experience = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
+    ai_settings = Column(JSON, default={"enabled": True, "model": "Qwen2.5-7B-Instruct"})
 
     quests = relationship("Quests", back_populates="player")
+    generated_quests = relationship("GeneratedQuest", back_populates="user")
 
-    def add_level(self, points: int):
+
+
+    def set_password(self, password: str):
+        self.hashed_password = get_password_hash(password)
+
+    def check_password(self, password: str) -> bool:
+        return verify_password(password, self.hashed_password)
+
+    def add_experience(self, points: int):
         self.experience += points
         self.check_level_up()
 
@@ -32,20 +46,54 @@ class Player(Base):
             self.level += 1
             exp_needed = self.level ** 2 * 100
 
-class Quests(Base):
+    def add_goal(self, goal: str):
+        goals = self.goals
+        if goal not in goals:
+            goals.append(goal)
+            self.goals = goals
 
-    __tablename__ = "quests"
+    def add_habbits(self, habit: str):
+        habits = self.habits
+        if habit not in habits or []:
+            habits.append(habit)
+            self.habits = habits
+
+
+class GeneratedQuest(Base):
+    __tablename__ = "generated_quests"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+    steps = Column(JSON, default=[])  # Шаги для выполнения квеста
+    estimated_time = Column(String)  # Примерное время выполнения
+    difficulty = Column(String)  # easy, medium, hard
+    category = Column(String)  # health, learning, productivity, etc.
+    ai_generated = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    ai_model = Column(String, nullable=True)  # Какая модель использовалась
+    generation_prompt = Column(Text, nullable=True)  # Промпт для отладки
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("User", back_populates="generated_quests")
+
+    # Связь с задачами
+    tasks = relationship("Task", back_populates="quest")
+
+
+class Task(Base):
+    __tablename__ = "tasks"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     description = Column(String)
-    difficult = Column(String)
-    point = Column(Integer, default=0)
-    is_compleated = Column(Boolean, default=False)
-    created_time = Column(DateTime, default=datetime.utcnow)
-    compleated_at = Column(DateTime, nullable=False)
+    points = Column(Integer, default=0)
+    is_completed = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    completed_at = Column(DateTime, nullable=True)
 
-    player_id = Column(Integer, ForeignKey("player.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship("User", back_populates="tasks")
 
-    player = relationship("Player", back_populates="quests")
-
+    # Связь с квестом
+    quest_id = Column(Integer, ForeignKey("generated_quests.id"), nullable=True)
+    quest = relationship("GeneratedQuest", back_populates="tasks")

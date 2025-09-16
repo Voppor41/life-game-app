@@ -18,6 +18,41 @@ class Player(PlayerBase):
     class Config:
         from_attributes = True
 
+class PlayerPreferences(BaseModel):
+    preferred_categories: List[str]
+    time_availability: str = "medium"   # low, medium, high
+    difficulty_preference: str = "medium"   # easy, medium, hard
+
+class PlayerUpdate(BaseModel):
+    goals: Optional[List[str]] = None
+    habits: Optional[List[str]] = None
+    preference: Optional[List[str]] = None
+
+
+class TaskBase(BaseModel):
+    title: str
+    description: Optional[str] = None
+    points: int = 0
+
+
+class TaskCreate(TaskBase):
+    pass
+
+
+class Task(TaskBase):
+    id: int
+    user_id: int
+    is_completed: bool
+    created_at: datetime
+    completed_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
+class TaskComplete(BaseModel):
+    is_completed: bool = True
+
 class QuestBase(BaseModel):
     title: str
     description: Optional[str] = None
@@ -38,3 +73,50 @@ class Quest(QuestBase):
 
 class QuestComplete(BaseModel):
     is_complited: bool = True
+
+
+class QuestStep(BaseModel):
+    title: str
+    description: str
+    points: int
+    estimated_time: str
+
+
+class GeneratedQuestBase(BaseModel):
+    title: str
+    description: str
+    steps: List[QuestStep]
+    estimated_time: str
+    difficulty: str
+    category: str
+
+
+class GeneratedQuestCreate(GeneratedQuestBase):
+    pass
+
+
+class GeneratedQuest(GeneratedQuestBase):
+    id: int
+    user_id: int
+    ai_generated: bool
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+class QuestGenerationResponse(BaseModel):
+    quest: GeneratedQuest
+    tasks: List[Task]
+
+class AISettings(BaseModel):
+    enabled: bool = True
+    model: str = "Qwen2.5-7B-Instruct"
+    temperature: float = 0.7
+    max_tokens: int = 1024
+
+class QuestGenerationRequest(BaseModel):
+    theme: Optional[str] = None
+    category: Optional[str] = None
+    stream: bool = False
+    ai_settings: Optional[AISettings] = None
+
