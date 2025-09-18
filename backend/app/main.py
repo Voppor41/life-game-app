@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .services.deepinfra import generate_daily_quest
+from .services.ai_integration import generate_daily_quest
 
 app = FastAPI()
 
