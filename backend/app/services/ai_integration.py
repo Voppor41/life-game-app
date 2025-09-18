@@ -134,7 +134,7 @@ class AIservice:
                     "title": "Планирование дня",
                     "description": "Составь план на день",
                     "points": 30,
-                    "estimated_time": "10 минут"
+                    "estimated_time": "15 минут"
                 }
             ],
             "estimated_time": "1 день",

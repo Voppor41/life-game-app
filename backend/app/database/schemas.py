@@ -21,7 +21,7 @@ class Player(PlayerBase):
 class PlayerPreferences(BaseModel):
     preferred_categories: List[str]
     time_availability: str = "medium"   # low, medium, high
-    difficulty_preference: str = "medium"   # easy, medium, hard
+    difficulty_preference: str = "medium"
 
 class PlayerUpdate(BaseModel):
     goals: Optional[List[str]] = None

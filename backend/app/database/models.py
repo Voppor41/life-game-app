@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from security import get_password_hash, verify_password
-import json
+
 
 Base = declarative_base()
 
