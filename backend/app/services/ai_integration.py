@@ -1,8 +1,6 @@
 import os
 import logging
-from typing import Dict, Any, Optional, AsyncGenerator
-
-from httpx import stream
+from typing import Dict, Any, AsyncGenerator
 from huggingface_hub import InferenceClient
 from dotenv import load_dotenv
 
@@ -22,7 +20,7 @@ class AIservice:
         else:
             self.client = InferenceClient(api_key=self.api_key)
 
-    async def generated_quest(self, user_data: Dict[str, Any], stream: bool = False
+    async def generate_quest(self, user_data: Dict[str, Any], stream: bool = False
                               ) -> AsyncGenerator[str, None] | Dict[str, Any]:
 
         if not self.client:
@@ -37,7 +35,7 @@ class AIservice:
                 return await self._generate_complete(promt, user_data)
         except Exception as e:
             logger.error(f"AI generation error: {e}")
-            return self.generate_fallback_quest(user_data)
+            return self._genrate_fallback_quest(user_data)
 
     def _built_quest_promt(self, user_data: Dict[str, Any]) -> str:
         return f"""
@@ -134,7 +132,7 @@ class AIservice:
                     "title": "Планирование дня",
                     "description": "Составь план на день",
                     "points": 30,
-                    "estimated_time": "15 минут"
+                    "estimated_time": "10 минут"
                 }
             ],
             "estimated_time": "1 день",
