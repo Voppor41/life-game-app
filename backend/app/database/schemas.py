@@ -26,7 +26,7 @@ class PlayerPreferences(BaseModel):
 class PlayerUpdate(BaseModel):
     goals: Optional[List[str]] = None
     habits: Optional[List[str]] = None
-    preference: Optional[List[str]] = None
+    preferences: Optional[dict] = None
 
 
 class TaskBase(BaseModel):
@@ -64,7 +64,7 @@ class QuestCreate(QuestBase):
 class Quest(QuestBase):
     id: int
     user_id: int
-    is_complited: bool
+    is_completed: bool
     created_at: datetime
     completed_at: Optional[datetime] = None
 
@@ -72,7 +72,7 @@ class Quest(QuestBase):
         from_attributes = True
 
 class QuestComplete(BaseModel):
-    is_complited: bool = True
+    is_completed: bool = True
 
 
 class QuestStep(BaseModel):
@@ -99,6 +99,7 @@ class GeneratedQuest(GeneratedQuestBase):
     id: int
     user_id: int
     ai_generated: bool
+    ai_model: Optional[str] = None
     created_at: datetime
 
     class Config:

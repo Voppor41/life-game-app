@@ -1,3 +1,4 @@
+#ai_integration
 import os
 import logging
 from typing import Dict, Any, AsyncGenerator
@@ -12,7 +13,7 @@ class AIservice:
 
     def __init__(self):
         self.api_key = os.getenv("HUGGINGFACEHUB_API_TOKEN")
-        self.default_model = "Qwen/Qwen2.5-7B-Instruct"
+        self.default_model = os.getenv("AI_MODEL")
 
         if not self.api_key:
             logger.warning("HUGGINGFACEHUB_API_TOKEN not found. Some AI features may be disabled.")
@@ -35,7 +36,7 @@ class AIservice:
                 return await self._generate_complete(promt, user_data)
         except Exception as e:
             logger.error(f"AI generation error: {e}")
-            return self._genrate_fallback_quest(user_data)
+            return self._generate_fallback_quest(user_data)
 
     def _built_quest_promt(self, user_data: Dict[str, Any]) -> str:
         return f"""
@@ -101,7 +102,7 @@ class AIservice:
             if chunk.choices and chunk.choices[0].delta_content:
                 yield chunk.choices[0].delta_content
 
-    def _genrate_fallback_quest(self, user_data: Dict[str, Any]) -> Dict[str, Any]:
+    def _generate_fallback_quest(self, user_data: Dict[str, Any]) -> Dict[str, Any]:
         """Резервная генерация квеста (если AI недоступен"""
 
         goals = user_data.get('goals', [])
