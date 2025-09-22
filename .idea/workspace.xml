@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39867dd2-6038-465e-9568-a2a2e0b02037" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/database/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/database/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/database/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/database/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/database/schemas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/routers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/routers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/security.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/services/ai_integration.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/services/ai_integration.py" afterDir="false" />
-    </list>
+    <list default="true" id="39867dd2-6038-465e-9568-a2a2e0b02037" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
