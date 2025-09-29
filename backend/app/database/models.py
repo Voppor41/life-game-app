@@ -17,6 +17,8 @@ class Player(Base):
     goals = Column(JSON, default=list)
     preferences = Column(JSON, default=dict)
     experience = Column(Integer, default=0)
+    is_active = Column(Boolean, default=False)
+    is_verified = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.now(UTC))
     ai_settings = Column(JSON, default={"enabled": True, "model": "Qwen2.5-7B-Instruct"})
 

@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.database.db import init_db
-from routers import router
+from backend.app.routers.ai_routers import ai_router
+from backend.app.routers.auth import  auth_router
 
 
 @asynccontextmanager
@@ -41,7 +42,8 @@ app.add_middleware(
 )
 
 # --- Routers ---
-app.include_router(router, prefix="/ai", tags=["AI"])
+app.include_router(ai_router, prefix="/ai", tags=["AI"])
+app.include_router(auth_router, prefix="/auth", tags=["Auth"])
 
 # --- Root ---
 @app.get("/")

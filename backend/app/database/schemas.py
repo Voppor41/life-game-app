@@ -9,11 +9,15 @@ class PlayerBase(BaseModel):
 class PlayerCreate(BaseModel):
     password: str
 
+
+
 class Player(PlayerBase):
     id: int
     level: int
     experience: int
     created_at: datetime
+    is_active: bool
+    is_verified: bool
 
     class Config:
         from_attributes = True
@@ -28,6 +32,10 @@ class PlayerUpdate(BaseModel):
     habits: Optional[List[str]] = None
     preferences: Optional[dict] = None
 
+class PlayerLogin(BaseModel):
+    username: str
+    password: str
+    is_verified: bool
 
 class TaskBase(BaseModel):
     title: str
