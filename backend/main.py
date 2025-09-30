@@ -3,9 +3,10 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.app.database.db import init_db
+from backend.app.database.db import init_db, engine, Base
 from backend.app.routers.ai_routers import ai_router
 from backend.app.routers.auth import  auth_router
+from backend.app.routers.login import lg_router
 
 
 @asynccontextmanager
@@ -13,6 +14,7 @@ async def lifespan(app: FastAPI):
     try:
         print(" Initializing database...")
         init_db()
+        Base.metadata.create_all(bind=engine)
         print(" Database initialized successfully")
     except Exception as e:
         print(f" Database initialization failed: {e}")
@@ -44,6 +46,7 @@ app.add_middleware(
 # --- Routers ---
 app.include_router(ai_router, prefix="/ai", tags=["AI"])
 app.include_router(auth_router, prefix="/auth", tags=["Auth"])
+app.include_router(lg_router, prefix="/auth", tags=["Auth"])
 
 # --- Root ---
 @app.get("/")
@@ -52,4 +55,4 @@ def read_root():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

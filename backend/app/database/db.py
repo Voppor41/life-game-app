@@ -3,18 +3,17 @@ from dotenv import load_dotenv
 import psycopg2
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from backend.app.database.models import Base
+from backend.app.config import settings
 
 load_dotenv()
 
 database_url = os.getenv("DATABASE_URL")
-engine = create_engine(database_url)
-
+engine = create_engine(database_url, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
+
 def get_database_url():
-    database_url = os.getenv("DATABASE_URL")
 
     if database_url:
         # Если есть не-ASCII символы в пароле, кодируем их

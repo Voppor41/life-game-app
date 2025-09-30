@@ -7,6 +7,7 @@ class PlayerBase(BaseModel):
     email: EmailStr
 
 class PlayerCreate(BaseModel):
+    email: str
     password: str
 
 

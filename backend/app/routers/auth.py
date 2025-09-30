@@ -1,6 +1,5 @@
-import jwt
-from fastapi import APIRouter, Depends, HTTPException, status
-from jose import JWTError
+from fastapi import APIRouter, Depends, HTTPException
+from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_400_BAD_REQUEST
 
@@ -48,7 +47,7 @@ def verify_email(token: str, db: Session = Depends(get_db)):
     except JWTError:
         raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="Invalid or expired token")
 
-    user = db.query(models.Player).filter(models.Player.email).first
+    user = db.query(models.Player).filter(models.Player.email == email).first()
     if not user:
         raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="User not found")
 
