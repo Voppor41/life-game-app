@@ -46,7 +46,7 @@ app.add_middleware(
 # --- Routers ---
 app.include_router(ai_router, prefix="/ai", tags=["AI"])
 app.include_router(auth_router, prefix="/auth", tags=["Auth"])
-app.include_router(lg_router, prefix="/auth", tags=["Auth"])
+app.include_router(lg_router, prefix="/lg", tags=["Lg"])
 
 # --- Root ---
 @app.get("/")

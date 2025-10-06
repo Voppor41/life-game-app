@@ -94,17 +94,15 @@ def verify_refresh_token(token: str) -> Optional[str]:
 # --- EMAIL TOKENS ---
 def create_email_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
+    if "sub" not in to_encode:
+        raise ValueError("Email token must include 'sub' field (user email).")
     expire = datetime.now(UTC) + (expires_delta or timedelta(hours=EMAIL_TOKEN_EXPIRE_HOURS))
     to_encode.update({"exp": expire})
-
-    return jwt.encode(to_encode, EMAIL_SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def verify_email_token(token: str):
     try:
-        payload = jwt.decode(token, EMAIL_SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
-            return None
-        return email
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload.get("sub")
     except JWTError:
         return None

@@ -1,4 +1,5 @@
 import os
+import uuid
 
 import pytest
 from fastapi.testclient import TestClient
@@ -32,19 +33,22 @@ client = TestClient(app)
 
 @pytest.fixture
 def test_user():
-    """Создаём пользователя вручную в базе"""
     db = TestingSessionLocal()
+    unique_suffix = str(uuid.uuid4())[:8]
+    username = f"testuser_{unique_suffix}"
+    email = f"test_{unique_suffix}@example.com"
+
     user = models.Player(
-        username="testuser",
-        email="test@example.com",
+        username=username,
+        email=email,
         hashed_password=get_password_hash("password")[:72],
         is_verified=False
     )
     db.add(user)
     db.commit()
     db.refresh(user)
+    yield user
     db.close()
-    return user
 
 
 def test_verify_email(test_user):

@@ -12,19 +12,17 @@ auth_router = APIRouter()
 
 @auth_router.post("/register", response_model=schemas.Player)
 def register_user(user: schemas.PlayerCreate, db: Session = Depends(get_db)):
-    # Проверяем, есть ли уже такой email или username
     if db.query(models.Player).filter(models.Player.email == user.email).first():
         raise HTTPException(status_code=400, detail="Email already registered")
     if db.query(models.Player).filter(models.Player.username == user.username).first():
         raise HTTPException(status_code=400, detail="Username already taken")
 
-    # Создаём пользователя
     hashed_password = get_password_hash(user.password)
+
     new_user = models.Player(
         username=user.username,
         email=user.email,
         hashed_password=hashed_password,
-        is_verified=False
     )
     db.add(new_user)
     db.commit()
@@ -32,7 +30,7 @@ def register_user(user: schemas.PlayerCreate, db: Session = Depends(get_db)):
 
     # Генерируем токен для подтверждения
     token = create_email_token({"sub": new_user.email})
-    send_verification_email(new_user.email, token)
+    #send_verification_email(new_user.email, token)
 
     return new_user
 
@@ -58,4 +56,4 @@ def verify_email(token: str, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(user)
 
-    return {"message": "Email successfuly verified"}
+    return {"message": "Email successfully verified"}

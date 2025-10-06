@@ -122,11 +122,11 @@ def test_verify_refresh_token_invalid():
 
 
 def test_create_email_token_and_verify():
-    data = {"sub": "test@example.com"}
+    data = {"sub": "test1@example.com"}
     token = security.create_email_token(data)
 
     email = security.verify_email_token(token)
-    assert email == "test@example.com"
+    assert email == "test1@example.com"
 
 
 def test_verify_email_token_invalid():
