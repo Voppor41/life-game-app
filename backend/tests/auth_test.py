@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -8,9 +10,10 @@ from backend.app.database import models
 from backend.app.database.models import Base
 from backend.app.security import create_email_token, get_password_hash
 
+
 # --- Настраиваем in-memory SQLite для теста ---
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"  # для простоты файл, можно и "sqlite:///:memory:"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg2://postgres:00bit01@localhost:5432/self_treacker")
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base.metadata.create_all(bind=engine)
@@ -34,7 +37,7 @@ def test_user():
     user = models.Player(
         username="testuser",
         email="test@example.com",
-        hashed_password=get_password_hash("password"),
+        hashed_password=get_password_hash("password")[:72],
         is_verified=False
     )
     db.add(user)
@@ -49,7 +52,7 @@ def test_verify_email(test_user):
     token = create_email_token({"sub": test_user.email})
 
     # Отправляем запрос
-    response = client.get(f"/verify-email?token={token}")
+    response = client.get(f"/auth/verify-email?token={token}")
     assert response.status_code == 200
     assert response.json()["message"] == "Email successfully verified"
 

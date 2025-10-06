@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, constr
 from datetime import datetime
 from typing import Optional, List
 
@@ -7,10 +7,9 @@ class PlayerBase(BaseModel):
     email: EmailStr
 
 class PlayerCreate(BaseModel):
+    username: str
     email: str
-    password: str
-
-
+    password: constr(min_length=8, max_length=72)
 
 class Player(PlayerBase):
     id: int

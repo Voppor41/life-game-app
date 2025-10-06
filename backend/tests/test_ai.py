@@ -1,7 +1,6 @@
-# tests/test_ai.py
 import pytest
 import requests
-import json
+
 
 BASE_URL = "http://localhost:8000"
 
@@ -31,12 +30,14 @@ def test_ai_endpoints_available():
 def test_create_user_and_get_token():
     """Тест создания пользователя и получения токена"""
     # Сначала попробуем найти правильный путь для регистрации
+    requests.delete(f"{BASE_URL}/auth/debug/clear-users")
     response = requests.get(f"{BASE_URL}/openapi.json")
     openapi_data = response.json()
     paths = openapi_data['paths']
 
     # Ищем путь для создания пользователя
-    user_paths = [path for path in paths.keys() if '/users' in path and 'post' in str(paths[path])]
+    user_paths = [path for path in paths.keys() if '/register' in path or '/signup' in path or '/users/create' in path]
+
 
     if not user_paths:
         pytest.skip("User registration endpoint not found")
@@ -46,7 +47,7 @@ def test_create_user_and_get_token():
 
     # Создаем пользователя
     user_data = {
-        "username": "pytest_user",
+        "username": "testuser",
         "email": "pytest@example.com",
         "password": "pytest_password123"
     }
@@ -67,7 +68,7 @@ def test_create_user_and_get_token():
 
     # Получаем токен
     auth_data = {
-        "username": "pytest_user",
+        "username": "testuser",
         "password": "pytest_password123",
         "grant_type": "password"
     }

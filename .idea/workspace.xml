@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39867dd2-6038-465e-9568-a2a2e0b02037" name="Changes" comment="" />
+    <list default="true" id="39867dd2-6038-465e-9568-a2a2e0b02037" name="Changes" comment="Added tests for login and auth user, also added routers for login and auth">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routers/login.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/database/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/database/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/security.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/security.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/services/auth_services/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/debug.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/services/auth_services/sign_up.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/debug.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/tests/auth_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tests/auth_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/tests/confest.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tests/confest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/tests/test_ai.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tests/test_ai.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/tests/test_security.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tests/test_security.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,20 +66,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.ai_integration.executor": "Run",
-    "Python.db.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.routers.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "vcs.patch.to.clipboard": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests in test_ai.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ai_integration.executor&quot;: &quot;Run&quot;,
+    &quot;Python.db.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.routers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_ai.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;vcs.patch.to.clipboard&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\User\Dekstop\Self_treacker" />
+      <recent name="D:\User\Dekstop\Self_treacker\backend\app\routers" />
       <recent name="D:\User\Dekstop\Self_treacker\backend\app" />
       <recent name="D:\User\Dekstop\Self_treacker\backend\app\database" />
     </key>
@@ -83,6 +104,15 @@
       <option name="presentableId" value="Default" />
       <updated>1752579904768</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added tests for login and auth user, also added routers for login and auth">
+      <option name="closed" value="true" />
+      <created>1759190690215</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759190690215</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -98,5 +128,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added tests for login and auth user, also added routers for login and auth" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added tests for login and auth user, also added routers for login and auth" />
   </component>
 </project>

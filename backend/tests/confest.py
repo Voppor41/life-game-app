@@ -1,3 +1,4 @@
+import os
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -10,12 +11,12 @@ from backend.app.database.db import get_db
 from backend.app.database.models import Base
 
 
+print(f"\n📡 DATABASE_URL in tests: {os.getenv('DATABASE_URL')}")
 # Используем отдельную БД для тестов
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg2://postgres:00bit01@localhost:5432/self_treacker")
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+    SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
@@ -49,7 +50,7 @@ def test_user_and_token(db):
     user = models.Player(
         username="testuser",
         email="testuser@example.com",
-        hashed_password=get_password_hash("testpassword"),
+        hashed_password=get_password_hash("password123"),
         is_verified=True  # делаем сразу верифицированным
     )
     db.add(user)
@@ -59,3 +60,8 @@ def test_user_and_token(db):
     # создаём токен
     token = create_access_token({"sub": user.email})
     return user, token
+
+@pytest.fixture(autouse=True)
+def clean_db():
+    Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)

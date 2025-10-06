@@ -35,13 +35,14 @@ class DummyQuery:
 
 @pytest.fixture
 def fake_user():
-    return models.Player(
+    user = models.Player(
         id=1,
         username="testuser",
-        hashed_password=security.get_password_hash("password"),
-        email="test@example.com",
+        email="test1@example.com",
         is_active=True,
     )
+    user.hashed_password = security.get_password_hash("password123")
+    return user
 
 
 @pytest.fixture
@@ -88,8 +89,9 @@ def test_get_current_active_user_inactive(fake_user):
 
 
 def test_password_hash_and_verify():
-    password = "supersecret"
+    password = "password123"
     hashed = security.get_password_hash(password)
+
 
     assert hashed != password
     assert security.verify_password(password, hashed) is True

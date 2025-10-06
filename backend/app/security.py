@@ -62,6 +62,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 
 def get_password_hash(password: str) -> str:
+    print("Hashing password:", password[:20])
+    if len(password.encode("utf-8")) > 72:
+        raise ValueError(f"Password too long ({len(password)} chars)")
     return pwd_context.hash(password)
 
 # --- TOKENS ---
